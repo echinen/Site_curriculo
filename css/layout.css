@@ -44,7 +44,7 @@ header {
 header:before {
    content: '';
    display: inline-block;
-   vertical-align: middle;
+   vertical-align: bottom;
    height: 100%;
 }
 header .banner {
@@ -52,15 +52,15 @@ header .banner {
    vertical-align: middle;
    margin: 0 auto;
    width: 85%;
-   padding-bottom: 30px;s
-   text-align: center;
+   padding-bottom: 100px;
+   text-align: justify;
 }
 
 header .banner-text { width: 100%; }
 header .banner-text h1 {
    font: 90px/1.1em 'opensans-bold', sans-serif;
    color: #fff;
-   letter-spacing: -2px;
+   letter-spacing: -5px;
    margin: 0 auto 18px auto;
    text-shadow: 0px 1px 3px rgba(0, 0, 0, .8);
 }
