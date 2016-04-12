@@ -1,0 +1,22 @@
+﻿@using Microsoft.AspNet.Identity
+@if (HttpContext.Current.Session["userId"] != null)
+{
+    using (Html.BeginForm("Sair", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            @Html.ActionLink("Olá " + HttpContext.Current.Session["userName"] + "!", "Index", "mpc_usuarios", routeValues: null, htmlAttributes: new { title = "Manage" })
+        </li>
+        <li>@Html.ActionLink("Deslogar", "LogOff", "Account", routeValues: null, htmlAttributes: new { id = "logoutLink" })</li>
+       
+    </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">        
+        <li>@Html.ActionLink("Entrar", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}

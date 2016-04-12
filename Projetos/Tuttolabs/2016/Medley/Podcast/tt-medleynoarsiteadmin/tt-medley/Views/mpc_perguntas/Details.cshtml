@@ -1,0 +1,75 @@
+﻿@model tt_medley.Models.mpc_perguntas
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>mpc_perguntas</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.podcast_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.podcast_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pergunta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pergunta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.resp1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.resp1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.resp2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.resp2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.resp3)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.resp3)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.resp4)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.resp4)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.resp_certa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.resp_certa)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

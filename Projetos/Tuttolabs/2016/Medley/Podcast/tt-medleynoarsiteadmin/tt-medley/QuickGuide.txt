@@ -1,0 +1,92 @@
+﻿\*Quick Guide v1.1*\
+
+Author: Bruno Martins
+email: bmartins@aprende.com.br / am.bruno@live.com
+organization: TuttoLabs
+date: 01/02/2016
+
+\*Insert de dados*\
+
+ 1 -> Para inserir novos registros ao banco, vá até o model e no campo id adicione a seguinte annotation
+ logo antes da declaracao do atributo:
+
+	" [DatabaseGenerated(DatabaseGeneratedOption.Identity), StringLength(255)]
+		public string id { get; set; } "
+
+Comente ou remova a annotation que estava acima do id:
+
+	" [StringLength(255)] "
+
+Isso faz com que o id seja entendido como automático pelo código.
+
+Agora, para inserir a data de criação do registro automaticamente, vamos comentar ou remover o seguinte atributo:
+
+	" [Column("__createdAt")]
+       public DateTimeOffset C__createdAt { get; set; } "
+
+Fazendo isto, temos que remover este atributo do entity framework, no momento da criaçao dele. Vá no arquivo Model1.cs e procure
+pelo atributo correspondente a classe da qual ele foi removido, como por exemplo: 
+	
+	"	modelBuilder.Entity<mpc_cargos>()
+        .Property(e => e.C__createdAt)
+        .HasPrecision(3); "
+
+Comente ou remova todo este bloco de codigo para ele nao considerar o atributo na hora da criacao do modelo.
+
+Agora, temos que remover o atributo das Views, para isto, vá na pasta correspondente, e na sua view Index, Edit, Delete, Detail, e Create, remova
+todos os campos e exibicoes que referenciem o atributo deletado.
+
+Feito isto, vamos ao controller Correspodente ao Model e nos metodos de inserir e editar, vamos remover o id, C_createdAt e qualquer
+outro atributo que não sera inputado pelo usuário.
+
+
+\*Edit*\
+
+2 -> Para editar os regitros precisamos passar novamente o id pro objeto.
+Para fazer isso altere a view do editar e coloque o seguinte codigo:
+	" <div class="form-group">
+            @Html.LabelFor(model => model.id, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.id)
+                @Html.DisplayFor(model => model.id, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div> "
+
+Fazendo isso, estamos passando o id atual para o nosso model sem que o usuario possa edita-lo.
+Para nao exibir o id na tela use o seguinte codigo:
+	" <div class="form-group">
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.id)
+            </div>
+        </div> "
+
+No controller correspondente vamos passar o id dentro do Include do primeiro parametro, e adicionar outro parametro String id antes de fechar
+os parenteses.
+Em seguida dentro da validacao do model (ModelState.isValid), substituiremos tudo que ha dentro do if pelo seguinte codigo:
+	
+	" bool saveFailed;
+                do
+                {
+                    saveFailed = false;
+                    try
+                    {
+                        db.Entry({{nome do model}}).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                    catch (System.Data.Entity.Infrastructure.DbUpdateConcurrencyException ex)
+                    {
+                        saveFailed = true;
+
+                        // Update original values from the database 
+                        var entry = ex.Entries.Single();
+                        entry.OriginalValues.SetValues(entry.GetDatabaseValues());
+                    }
+
+                } while (saveFailed); "
+
+Aqui fazemos um try para tentar salvar os novos dados no banco, se conseguirmos, ele executa o updade, caso contrario ele continua com os valores
+existentes no db.
+
+
+
+

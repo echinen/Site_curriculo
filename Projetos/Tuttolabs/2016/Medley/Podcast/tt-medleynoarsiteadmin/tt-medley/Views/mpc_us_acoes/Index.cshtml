@@ -1,0 +1,149 @@
+﻿@model IEnumerable<tt_medley.Models.mpc_us_acoesRel>
+
+@{
+    ViewBag.Title = "Index";
+    var actController = ViewContext.Controller as tt_medley.Controllers.mpc_us_acoesController;
+
+    List<SelectListItem> listaCategoria = new List<SelectListItem>();   
+
+    listaCategoria.Add(new SelectListItem
+    {
+        Text = "Todas",
+        Value = ""
+    });
+    foreach (var item in ViewBag.dropCategory)
+    {
+        if (item.C__deleted == false)
+        {
+            listaCategoria.Add(new SelectListItem
+            {
+                Text = item.nome,
+                Value = item.nome
+            });
+        }
+
+    }
+}
+
+<h2>Report FV</h2>
+<br />
+<div style='font-family:Arial'>
+    @using (Html.BeginForm("Index", "mpc_us_acoes", FormMethod.Get, new { @class = "form-inline" }))
+    {
+        <p class="infoText">
+            <div class="row">
+                <div class="form-group col-xs-4 col-lg-4">
+                    <label for="SearchString">Usuário</label>
+                    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @placeholder = "Usuário", @class = "form-control pull-right" })
+                </div>
+                <div class="form-group col-xs-4 col-lg-4">
+                    <label for="SearchStringCategoria">Categorias</label>
+                    @Html.DropDownList("SearchStringCategoria", listaCategoria, new { @class = "form-control pull-right" })
+                </div>
+                <div class="form-group col-xs-4 col-lg-4">
+                    <label for="SearchStringPodcast">Podcast</label>
+                    @Html.TextBox("SearchStringPodcast", ViewBag.CurrentFilterPodcast as string, new { @placeholder = "Podcast", @class = "form-control pull-right" })
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="form-group col-xs-4 col-lg-4">
+                    <label for="dtInicio">Data Início</label>
+                    @Html.TextBox("dtInicio", ViewBag.CurrentFilterdtInicio as string, new { @placeholder = "Data Início", @class = "form-control pull-right", @id = "dtInicio" })
+                </div>
+                <div class="form-group col-xs-4 col-lg-4">
+                    <label for="dtFim">Data Fim</label>
+                    @Html.TextBox("dtFim", ViewBag.CurrentFilterdtFim as string, new { @placeholder = "Data Fim", @class = "form-control pull-right", @id = "dtFim" })
+                </div>
+                <div class="col-xs-2 col-lg-2 col-xs-offset-1 col-lg-offset-1">
+                    <button id="buscarValores" type="submit" style="width:100%" class="btn btn-secondary">Buscar</button>
+                </div>
+            </div>
+</p>
+    }
+</div>
+<br />
+
+<table class="table">
+    <tr>
+        <th>
+            Usuario
+        </th>
+        <th>
+            Data Ação
+        </th>
+        <th>
+            Login
+        </th>
+        <th>
+            Ouviu
+        </th>
+        <th>
+            Categoria
+        </th>
+        <th>
+            Podcast
+        </th>
+    </tr>
+@if(Model != null)
+{
+    foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.usuario)
+            </td>
+            <td>
+                @String.Format("{0:dd/MM/yyyy}", item.dataacao, Culture)
+            </td>
+            <td>
+                @{ 
+                    if(item.login.HasValue)
+                    {
+                        <p>@((bool)item.login? "Sim" : "Não")</p>
+                    } else
+                    {
+                        <p></p>
+                    }
+                }
+            </td>
+            <td>
+                @{
+                    if (item.ouviu.HasValue)
+                    {
+                        <p>@((bool)item.ouviu ? "Sim" : "Não")</p>
+                    }
+                    else
+                    {
+                        <p></p>
+                    }
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.categoria)
+            </td>
+            <td>
+               @Html.DisplayFor(modelItem => item.audio)
+            </td>
+        </tr>
+    }
+}
+
+
+</table>
+
+
+
+<script>
+    $(function () {
+        $('#dtInicio').datepicker({
+            format: 'dd/mm/yyyy',
+            language: "pt-BR"
+        });
+
+        $('#dtFim').datepicker({
+            format: 'dd/mm/yyyy',
+            language: "pt-BR"
+        });
+    });
+</script>

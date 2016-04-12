@@ -1,0 +1,72 @@
+﻿@model IEnumerable<tt_medley.Models.mpc_grupos>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Lista de Grupos</h2>
+
+<a href="@Url.Action("Create", "mpc_grupos", null)" title="Novo Grupo" class="btn btn-info">
+    <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>
+    Novo Grupo
+</a><br /><br />
+
+<table class="table">
+    <tr>
+        
+        <th>
+            Nome
+        </th>
+        <th>
+            Descrição
+        </th>
+        <th>
+            Engajamento
+        </th>
+        <th>
+            Notas
+        </th>
+        <th>
+            Audiência
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>        
+        <td>
+            @Html.DisplayFor(modelItem => item.nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.descricao)
+        </td>
+        <td>
+            @if (item.engajamento != null)
+            { @Html.DisplayFor(modelItem => item.engajamento) }
+            else {
+                @("0");
+            } %
+        </td>
+        <td>
+            @if (item.notas != null)
+            { @Html.DisplayFor(modelItem => item.notas) }
+            else {
+                @("0");
+            } %
+        </td>
+        <td>
+            @if (item.audiencia != null)
+            { @Html.DisplayFor(modelItem => item.audiencia) }
+            else {
+                @("0");
+            } %
+        </td>
+
+        <td>
+            @Html.ActionLink(" ", "Edit", new { id = item.id }, new { @class = "editIcon" })
+            @Html.ActionLink(" ", "Delete", new { id = item.id }, new { @class = "deleteIcon" })
+        </td>
+    </tr>
+}
+
+</table>

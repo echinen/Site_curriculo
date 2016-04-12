@@ -1,0 +1,111 @@
+﻿@using Microsoft.AspNet.Identity
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grupo Sanofi Admin</title>
+    @Styles.Render("~/bundles/style")
+    @RenderSection("style", required: false)
+    @Styles.Render("~/bundles/dropzonescss")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/datepicker")
+    @RenderSection("scripts", required: false)
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    
+
+</head>
+<body>
+    <div class="navbar navbar-fixed-top customNavbarColor">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Grupo Sanofi Admin", "Index", "mpc_podcasts", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+            @if (HttpContext.Current.Session["userId"] != null)
+            {
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuários<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li class="alterBootsColor">@Html.ActionLink("Usuários", "Index", "mpc_usuarios")</li>
+                            <li role="separator" class="divider"></li>
+                            <li class="alterBootsColor">@Html.ActionLink("Grupos", "Index", "mpc_grupos")</li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Podcasts<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li class="alterBootsColor">@Html.ActionLink("Podcasts", "Index", "mpc_podcasts")</li>
+                            <li role="separator" class="divider"></li>
+                            <li class="alterBootsColor">@Html.ActionLink("Perguntas", "Index", "mpc_perguntas")</li>
+                            <li role="separator" class="divider"></li>
+                            <li class="alterBootsColor">@Html.ActionLink("Categorias", "Index", "mpc_categorias")</li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cadastros<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li class="alterBootsColor">@Html.ActionLink("Empresas", "Index", "mpc_empresas")</li>
+                            <li role="separator" class="divider"></li>
+                            <li class="alterBootsColor">@Html.ActionLink("Unidades", "Index", "mpc_unidades")</li>
+                            <li role="separator" class="divider"></li>
+                            <li class="alterBootsColor">@Html.ActionLink("Cargos", "Index", "mpc_cargos")</li>
+                            <li role="separator" class="divider"></li>
+                            <li class="alterBootsColor">@Html.ActionLink("Equipes", "Index", "mpc_equipes")</li>
+                        </ul>
+                    </li>          
+                    
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Analytics<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li class="alterBootsColor">@Html.ActionLink("Report FV", "Index", "mpc_us_acoes")</li>
+                            <li role="separator" class="divider"></li>
+                            <li class="alterBootsColor">@Html.ActionLink("Gráficos", "Index", "Json")</li>
+                        </ul>
+                    </li>            
+                    
+                    <!--<li>@Html.ActionLink("Gráficos", "Index", "Json")</li>
+                    <li>@Html.ActionLink("Report FV", "Index", "Json")</li>-->
+                </ul>
+            }
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>    
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <div class="row">
+                <div class="col-md-2">
+                    <p style="display:inline-block">&copy; @DateTime.Now.Year - Tuttolabs</p>
+                </div>
+                <div class="col-md-1 col-md-offset-8">
+                    <img style="width:100%" src="@Url.Content("~/Content/images/logotreinamento.png")" />
+                </div>
+            </div>
+        </footer>
+    </div>
+
+
+
+</body>
+
+<style>
+    .alterBootsColor a{
+        color: #000 !important;
+    }
+</style>
+</html>

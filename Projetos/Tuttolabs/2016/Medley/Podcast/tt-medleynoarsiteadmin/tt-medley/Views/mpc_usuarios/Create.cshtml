@@ -1,0 +1,213 @@
+﻿@model tt_medley.Models.mpc_usuarios
+
+@{
+    ViewBag.Title = "Create";
+
+    List<SelectListItem> listaEmpresa = new List<SelectListItem>();
+    foreach (var item in ViewBag.empresa)
+    {
+        if (item.C__deleted == false)
+        {
+            listaEmpresa.Add(new SelectListItem
+            {
+                Text = item.nome,
+                Value = item.id
+            });
+        }
+
+    }
+
+    List<SelectListItem> listaCargo = new List<SelectListItem>();
+    foreach (var item in ViewBag.cargo)
+    {
+        if (item.C__deleted == false)
+        {
+            listaCargo.Add(new SelectListItem
+            {
+                Text = item.nome,
+                Value = item.id
+            });
+        }
+
+    }
+
+    List<SelectListItem> listaUnidade = new List<SelectListItem>();
+    foreach (var item in ViewBag.unidade)
+    {
+        if (item.C__deleted == false)
+        {
+            listaUnidade.Add(new SelectListItem
+            {
+                Text = item.nome,
+                Value = item.id
+            });
+        }
+
+    }
+
+    List<SelectListItem> listaEquipe = new List<SelectListItem>();
+    foreach (var item in ViewBag.equipe)
+    {
+        if(item.C__deleted == false)
+        {
+            listaEquipe.Add(new SelectListItem
+            {
+                Text = item.nome,
+                Value = item.id
+            });
+        }
+
+    }
+
+    List<SelectListItem> listaGestor = new List<SelectListItem>();
+    listaGestor.Add(new SelectListItem
+    {
+        Text = null,
+        Value = null
+    });
+    foreach (var item in ViewBag.gestor)
+    {
+        if (item.is_gestor == true)
+        {
+            listaGestor.Add(new SelectListItem
+            {
+                Text = item.email,
+                Value = item.id
+            });
+        }
+
+    }
+
+    var listaBoolean = new SelectList(new[]
+    {
+        new { ID = "False", Name = "Não" },
+        new { ID = "True", Name = "Sim" },
+    },
+    "ID", "Name", 1);
+}
+
+<h2>Novo Usuário</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        
+        <div class="form-group">
+            <label class="control-label col-md-2">Nome</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.nome, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.nome, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Email</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+
+                    <p class="text-danger">@ViewBag.erroExistingMail</p>
+                </div>
+</div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">CPF</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.cpf, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                    @Html.ValidationMessageFor(model => model.cpf, "", new { @class = "text-danger" })
+                </div>
+</div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Empresa</label>
+            <!--<div class="col-md-10">
+                @Html.DropDownList("selectedEmpresa", listaEmpresa, new { @class = "form-control" })
+            </div>-->
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.empresa_id, listaEmpresa, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Cargo</label>
+            <!--<div class="col-md-10">
+                @Html.DropDownList("selectedCargo", listaCargo, new { @class = "form-control" })
+            </div>-->
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.cargo_id, listaCargo, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Unidade</label>
+            <!--<div class="col-md-10">
+                @Html.DropDownList("selectedUnidade", listaUnidade, new { @class = "form-control" })
+            </div>-->
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.unidade_id, listaUnidade, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Equipe</label>
+            <!--<div class="col-md-10">
+                @Html.DropDownList("selectedEquipe", listaEquipe, new { @class = "form-control" })
+            </div>-->
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.equipe_id, listaEquipe, new { @class = "form-control" })
+            </div>
+        </div>    
+        
+        <div class="form-group">
+            <label class="control-label col-md-2">Gestor</label>
+            <!--<div class="col-md-10">
+                @Html.DropDownList("selectedGestor", listaGestor, new { @class = "form-control" })
+            </div>-->
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.gestor_id, listaGestor, new { @class = "form-control" })
+            </div>
+        </div>   
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Número de Matrícula</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.id_matricula, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.id_matricula, "", new { @class = "text-danger" })
+                </div>
+</div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">É Gestor?</label>
+                <!--<div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.is_gestor)
+                        @Html.ValidationMessageFor(model => model.is_gestor, "", new { @class = "text-danger" })
+                    </div>
+                </div>-->
+            <div class="col-md-10">
+                @Html.DropDownList("isGestor", listaBoolean, new { @class = "form-control" })
+            </div>
+</div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Criar" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+
+    <a href="@Url.Action("Index", "mpc_usuarios", null)" title="Voltar para a Lista de Usuários" class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+        Voltar
+    </a>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

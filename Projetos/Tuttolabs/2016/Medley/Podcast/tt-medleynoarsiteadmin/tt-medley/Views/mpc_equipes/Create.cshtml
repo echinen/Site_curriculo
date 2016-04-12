@@ -1,0 +1,45 @@
+﻿@model tt_medley.Models.mpc_equipes
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Nova Equipe</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        
+        <div class="form-group">
+            <p class="control-label col-md-2">Nome</p>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.nome, new { htmlAttributes = new { @class = "form-control" } })
+                <p class="text-danger">@ViewBag.errorNameMessage</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p class="control-label col-md-2">Descricao</p>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.descricao, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.descricao, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Adicionar" class="btn btn-primary" />
+            </div>
+        </div>
+
+    </div>
+}
+
+<a href="@Url.Action("Index", "mpc_equipes", null)" title="Voltar para a Lista de Equipes" class="btn btn-info">
+    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+    Voltar
+</a>

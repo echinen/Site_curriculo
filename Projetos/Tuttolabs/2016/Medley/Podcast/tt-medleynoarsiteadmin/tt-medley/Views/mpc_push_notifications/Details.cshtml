@@ -1,0 +1,82 @@
+﻿@model tt_medley.Models.mpc_push_notifications
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>mpc_push_notifications</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.C__createdAt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.C__createdAt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.C__updatedAt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.C__updatedAt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.C__version)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.C__version)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.C__deleted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.C__deleted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dataenvio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dataenvio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.titulo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.titulo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.mensagem)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.mensagem)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.grupo_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.grupo_id)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

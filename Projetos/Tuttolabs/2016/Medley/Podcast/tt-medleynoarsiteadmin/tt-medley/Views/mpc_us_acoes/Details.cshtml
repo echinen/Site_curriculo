@@ -1,0 +1,98 @@
+﻿@model tt_medley.Models.mpc_us_acoes
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>mpc_us_acoes</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.C__createdAt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.C__createdAt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.C__updatedAt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.C__updatedAt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.C__version)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.C__version)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.C__deleted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.C__deleted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.usuario_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.usuario_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dataacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dataacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.login)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.login)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ouviu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ouviu)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.categoria_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.categoria_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.audio_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.audio_id)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

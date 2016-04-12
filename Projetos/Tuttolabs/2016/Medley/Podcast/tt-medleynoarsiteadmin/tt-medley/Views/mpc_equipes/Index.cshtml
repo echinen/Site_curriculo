@@ -1,0 +1,42 @@
+﻿@model IEnumerable<tt_medley.Models.mpc_equipes>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Lista de equipes</h2>
+
+<a href="@Url.Action("Create", "mpc_equipes", null)" title="Cadastrar Nova Equipe" class="btn btn-info">
+    <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>
+    Cadastrar Nova Equipe
+</a>
+<br /><hr />
+<table class="table">
+    <tr>
+       
+        <th>
+            Nome
+        </th>
+        <th>
+            Descrição
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.descricao)
+        </td>
+        <td>
+            @Html.ActionLink(" ", "Edit", new { id = item.id }, new { @class = "editIcon" })
+            @Html.ActionLink(" ", "Delete", new { id = item.id }, new { @class = "deleteIcon" })
+        </td>
+    </tr>
+}
+
+</table>

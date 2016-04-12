@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Gráficos</h2>
+<br />
+<div>
+    <label for="dataIni">Data de Início</label>
+    <input id="dataIni" type="text">
+    <label for="dataFim">Data Final</label>
+    <input id="dataFim" type="text">
+    <button id="buscarValores" type="button" class="btn btn-secondary">Buscar</button>
+    <br />
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#home" class="tabs" aria-controls="home" role="tab" data-toggle="tab" id="lineChartTab">Timeline</a></li>
+        <li role="presentation"><a href="#profile" aria-controls="profile" class="tabs" role="tab" data-toggle="tab" id="mapChartTab">Mapa</a></li>
+        <li role="presentation"><a href="#messages" aria-controls="messages" class="tabs" role="tab" data-toggle="tab" id="pieChartTab">Acesso por Modelo</a></li>
+        <!--<li role="presentation"><a href="#settings" aria-controls="settings" class="tabs" role="tab" data-toggle="tab">Settings</a></li>-->
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="home">
+            <div id="lineChart"></div>            
+        </div>
+        <div role="tabpanel" class="tab-pane" id="profile">
+            <div id="regions_div" style="width: 900px; height: 500px;"></div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="messages">
+            <div id="pieChart" style="width: 900px; height: 500px; margin:auto;"></div>
+        </div>
+        <!--<div role="tabpanel" class="tab-pane" id="settings">setings</div>-->
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="@Url.Content("~/Scripts/charts.js")" type="text/javascript"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi?autoload=
+{'modules':[{'name':'visualization','version':'1.1','packages':
+['corechart']}]}"></script>
+}
+
+@section Style {
+    <link href="@Url.Content("~/Content/jquery.datetimepicker.css")" rel="stylesheet" type="text/css" />
+}
+
+<script src="@Url.Content("~/Scripts/jquery.datetimepicker.full.min.js")" type="text/javascript"></script>
+<script text="text/javascript">
+    $(function () {
+        $('#dataIni').datetimepicker({
+            format: 'Y-m-d',
+            timepicker: false,
+            dayOfWeekStart: 1,
+            lang: 'pt'
+        });
+        $('#dataFim').datetimepicker({
+            format: 'Y-m-d',
+            timepicker: false,
+            dayOfWeekStart: 1,
+            lang: 'pt'
+        });
+
+    });
+</script>

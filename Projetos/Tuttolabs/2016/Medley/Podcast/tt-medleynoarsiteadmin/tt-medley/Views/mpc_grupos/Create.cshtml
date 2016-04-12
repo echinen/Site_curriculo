@@ -1,0 +1,111 @@
+﻿@model tt_medley.Models.mpc_grupos
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Novo Grupo</h2>
+
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "createForm" }))
+
+{
+    @Html.AntiForgeryToken()
+    <hr />
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+        <div class="left-board">
+            <div class="form-group">
+                <p class="control-label col-md-2">Nome</p>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.nome, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.nome, "", new { @class = "text-danger" })
+                    <p class="text-danger">@ViewBag.errorMessageNome</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <p class="control-label col-md-2">Descrição</p>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.descricao, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.descricao, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        </div>
+
+        <div class="right-board">
+            <div id="treeDemo">
+                <ul>
+                    @foreach (var mpc_item in ViewBag.treeView.ChildNode)
+                {
+                        <li>
+                            @mpc_item.ItemName
+                            <ul>
+                                @foreach (var mpc_item_subitem in mpc_item.ChildNode)
+                                {
+                                    <li>@mpc_item_subitem.ItemName</li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                </ul>
+            </div>
+
+            <div style='font-family:Arial;margin-top: 15px;margin-left: 10px;'>
+                <p class="infoText">
+                    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @placeholder = "Nome do usuário" })
+                    <button id="searchUser" value="Buscar">Buscar</button>
+                </p><br />
+                <div id="userTree">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Salvar" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+
+<a href="@Url.Action("Index", "mpc_grupos", null)" title="Voltar para a Lista de Grupos" class="btn btn-info">
+    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+    Voltar
+</a>
+
+
+@section Style {
+    <link href="@Url.Content("~/Content/jstree.min.css")" rel="stylesheet" type="text/css" />
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="@Url.Content("~/Scripts/jstree.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_tree_functions.js")" type="text/javascript"></script>
+}
+
+<style>
+    .left-board {
+        display: inline-block;
+        float: left;
+        width: 387px;
+    }
+
+    .right-board {
+        display: inline-block;
+        float: right;
+        width: 300px;
+    }
+
+    .form-horizontal {
+        width: 700px;
+        margin: auto;
+    }
+</style>

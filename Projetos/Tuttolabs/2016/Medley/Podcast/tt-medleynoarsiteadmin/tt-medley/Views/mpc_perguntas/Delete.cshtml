@@ -1,0 +1,84 @@
+﻿@model tt_medley.Models.mpc_perguntas
+
+@{
+    ViewBag.Title = "Delete";
+    var perguntaController = ViewContext.Controller as tt_medley.Controllers.mpc_perguntasController;
+}
+
+<h2>Deletar</h2>
+
+<h3>Tem certeza que deseja remover esta questao da base de dados?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">        
+
+        <dt>
+            Podcast
+        </dt>
+
+        <dd>
+            @perguntaController.getPodcast(Model.podcast_id)
+        </dd>
+
+        <dt>
+           Pergunta
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pergunta)
+        </dd>
+
+        <dt>
+            Resposta 1
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.resp1)
+        </dd>
+
+        <dt>
+            Resposta 2
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.resp2)
+        </dd>
+
+        <dt>
+            Resposta 3
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.resp3)
+        </dd>
+
+        <dt>
+            Resposta 4
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.resp4)
+        </dd>
+
+        <dt>
+            Resposta Certa
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.resp_certa)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <a href="@Url.Action("Index", "mpc_perguntas", null)" title="Voltar para a Lista de Perguntas" class="btn btn-info">
+                <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+                Voltar
+            </a>
+            <input type="submit" value="Excluir" class="btn btn-primary" />
+        </div>
+    }
+</div>

@@ -1,0 +1,58 @@
+﻿@model tt_medley.Models.mpc_unidades
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Detalhes</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.C__updatedAt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.C__updatedAt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.C__version)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.C__version)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.C__deleted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.C__deleted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descricao)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

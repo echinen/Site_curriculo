@@ -1,0 +1,92 @@
+﻿@model tt_medley.Models.mpc_usuarios
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Detalhes do Usuário</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">        
+
+        <dt>
+            Nome: 
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nome)
+        </dd>
+
+        <dt>
+           Email: 
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.email)
+        </dd>
+
+        <dt>
+            CPF:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cpf)
+        </dd>
+
+        <dt>
+           Empresa:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.empresa_id)
+        </dd>
+
+        <dt>
+           Cargo:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cargo_id)
+        </dd>
+
+        <dt>
+            Unidade:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.unidade_id)
+        </dd>
+
+        <dt>
+           Equipe:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.equipe_id)
+        </dd>
+
+        <dt>
+            Gestor:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.gestor_id)
+        </dd>
+
+        <dt>
+            Número de matrícula:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_matricula)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    <a href="@Url.Action("Index", "mpc_usuarios", null)" title="Voltar para a Lista de Usuários" class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+        Voltar
+    </a>
+</p>

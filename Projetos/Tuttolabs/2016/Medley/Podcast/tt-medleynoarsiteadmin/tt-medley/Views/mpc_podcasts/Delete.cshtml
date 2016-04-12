@@ -1,0 +1,108 @@
+﻿@model tt_medley.Models.mpc_podcasts
+
+@{
+    ViewBag.Title = "Delete";
+    var podcastsController = ViewContext.Controller as tt_medley.Controllers.mpc_podcastsController;
+}
+
+<h2>Deletar</h2>
+
+<h3>Tem certeza que deseja remover "@Html.DisplayFor(model => model.nome)" da base de dados?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+              
+        <dt>
+           Nome
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nome)
+        </dd>
+
+        <dt>
+            Categoria
+        </dt>
+
+        <dd>
+           @podcastsController.getCategoria(Model.categoria_id)
+        </dd>
+
+        <dt>
+            Descrição
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descricao)
+        </dd>
+
+        <dt>
+            Patrocinador
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.patrocinador)
+        </dd>
+
+        <dt>
+            Grupo
+        </dt>
+
+        <dd>
+            @podcastsController.getGrupo(Model.grupo_id)
+        </dd>
+
+        <dt>
+            Data de lançamento
+        </dt>
+
+        <dd>
+            @String.Format("{0:d}", Model.datalancamento, Culture)
+        </dd>
+
+        <dt>
+            Tempo
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tempo)
+        </dd>
+
+        <dt>
+            Rating
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.rating)
+        </dd>
+
+        <dt>
+            Audiência
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.audiencia)
+        </dd>
+
+        <dt>
+            Url do Podcast
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.audio_url)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <a href="@Url.Action("Index", "mpc_usuarios", null)" title="Voltar para a Lista de Podcasts" class="btn btn-info">
+                <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+                Voltar
+            </a>
+            <input type="submit" value="Excluir" class="btn btn-primary" />
+        </div>
+    }
+</div>

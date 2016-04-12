@@ -1,0 +1,121 @@
+﻿@model PagedList.IPagedList<tt_medley.Models.mpc_podcasts>
+@using PagedList.Mvc;
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Index";
+    var podcastsController = ViewContext.Controller as tt_medley.Controllers.mpc_podcastsController;
+}
+
+<h2>Lista de Podcasts</h2>
+
+<a href="@Url.Action("Create", "mpc_podcasts", null)" title="Cadastrar Novo Podcast" class="btn btn-info">
+    <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>
+    Cadastrar Novo Podcast
+</a>
+
+<a href="@Url.Action("getCsv", "mpc_podcasts", null)" title="Baixar Lista de Podcasts" class="btn btn-info">
+    <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+    Baixar Lista de Podcasts
+</a>
+<br /><hr />
+
+<div style='font-family:Arial'>
+    @using (Html.BeginForm("Index", "mpc_podcasts", FormMethod.Get))
+    {
+        <p class="infoText">
+            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @placeholder = "Digite o titulo de um podcast", @size = "30" })
+            <input type="submit" value="Buscar"/>
+        </p>
+    }
+</div>
+<!--<div>
+    @using (Html.BeginForm("Import", "mpc_podcasts", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <input type="file" name="file" />
+        <input type="submit" name="Submit" id="Submit" value="Importar CSV" />
+    }
+</div>-->
+<table class="table table-hover">
+    <tr class="tableLink">
+        <th>
+            @Html.ActionLink("Nome", "Index", new { sortOrder = ViewBag.NomeSortOrder, currentFilter = ViewBag.CurrentFilter }, new { @class = "tableLink" })
+        </th>
+        <th>
+           @Html.ActionLink("Categoria", "Index", new { sortOrder = ViewBag.CategoriaSortOrder, currentFilter = ViewBag.CurrentFilter }, new { @class = "tableLink" })
+        </th>
+        <th>
+            @Html.ActionLink("Descrição", "Index", new { sortOrder = ViewBag.DescricaoSortOrder, currentFilter = ViewBag.CurrentFilter}, new { @class = "tableLink" })
+        </th>
+        <th>
+            @Html.ActionLink("Patrocinador", "Index", new { sortOrder = ViewBag.PatrocinadorSortOrder, currentFilter = ViewBag.CurrentFilter }, new { @class = "tableLink" })
+        </th>
+        <th>
+            @Html.ActionLink("Grupo", "Index", new { sortOrder = ViewBag.GrupoSortOrder, currentFilter = ViewBag.CurrentFilter }, new { @class = "tableLink" })
+        </th>
+        <th>
+            @Html.ActionLink("Data de Lançamento", "Index", new { sortOrder = ViewBag.DataSortOrder, currentFilter = ViewBag.CurrentFilter }, new { @class = "tableLink" })
+        </th>
+        <th>
+            @Html.ActionLink("Tempo", "Index", new { sortOrder = ViewBag.TempoSortOrder, currentFilter = ViewBag.CurrentFilter }, new { @class = "tableLink" })
+        </th>
+        <th class="notableLink">
+            Rating
+        </th>
+        <th class="notableLink">
+            Audiência
+        </th>        
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr class="infoText">
+        <td>
+            @Html.DisplayFor(modelItem => item.nome)
+        </td>
+        <td>
+            @podcastsController.getCategoria(item.categoria_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.descricao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.patrocinador)
+        </td>
+        <td>
+            @podcastsController.getGrupo(item.grupo_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.datalancamento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tempo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.rating)
+        </td>
+        <td>
+            @if (item.audiencia != null)
+            { @Html.DisplayFor(modelItem => item.audiencia) }
+            else {
+                @("0");
+            } %
+        </td>
+        
+        <td class="noBorder">
+            @Html.ActionLink("   ", "Edit", new { id=item.id }, new { @class = "editIcon" }) 
+            @Html.ActionLink("   ", "Delete", new { id=item.id }, new { @class = "deleteIcon" })
+        </td>
+    </tr>
+}
+
+</table>
+
+<br />
+<div class="infoText">
+    Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+</div>

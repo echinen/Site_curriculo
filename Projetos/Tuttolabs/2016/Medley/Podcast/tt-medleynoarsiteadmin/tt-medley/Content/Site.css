@@ -1,0 +1,115 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;   
+}
+
+h2{
+    color:rgba(0,0,0, 1);
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.customNavbarColor{
+background: #444492; /* Old browsers */
+background: -moz-linear-gradient(right,  #444492 0%, #24d8d5 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(right,  #444492 0%,#24d8d5 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to right,  #444492 0%,#24d8d5 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#444492', endColorstr='#24d8d5',GradientType=0 ); /* IE6-9 */
+
+}
+
+.tableLink{
+    color:rgba(66, 139, 202, 1) !important;
+}
+
+.notableLink{
+    color:rgba(0,0,0, 1) !important;
+}
+
+.infoText{
+    color:#000;
+}
+
+.pagination li a {
+    color: #000 !important;
+}
+
+.pagination .active a{
+    color:#fff !important;
+}
+
+
+/*Bootstrap complete*/
+
+td{
+    border-right:1px solid #ddd;
+    padding-top:12px !important;
+ }
+tr{
+    border-bottom:1px solid #ddd;
+    
+}
+tr:last-child{
+    border-right:none;
+}
+tr::after{
+    border-left:none;
+}
+
+.noBorder{
+    border:none;
+}
+
+.navbar-nav li a{
+    color:#fff;
+}
+
+.navbar-header .navbar-brand{
+    color:#fff;
+}
+
+.nav li a:hover,
+.nav li a:focus{
+    background-color: #23D6D3 !important;
+}
+.editIcon{
+    background-image:url(../Content/images/edit.png);
+    background-size:100%;
+    background-repeat: no-repeat;
+    display:inline-block;
+    width:15px;
+    height:15px;
+}
+
+.deleteIcon{
+    background-image:url(../Content/images/delete.png);
+    background-size:100%;
+    background-repeat: no-repeat;
+    display:inline-block;
+    width:15px;
+    height:15px;
+}
+
+.viewIcon{
+    display:inline-block;
+    cursor:pointer;
+}
+

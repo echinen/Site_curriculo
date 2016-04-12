@@ -1,0 +1,83 @@
+﻿@model IEnumerable<tt_medley.Models.mpc_perguntas>
+
+@{
+    ViewBag.Title = "Index";
+    var perguntaController = ViewContext.Controller as tt_medley.Controllers.mpc_perguntasController;
+}
+
+<h2>Lista de perguntas</h2>
+
+<a href="@Url.Action("Create", "mpc_perguntas", null)" title="Cadastrar Nova Pergunta" class="btn btn-info">
+    <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>
+    Cadastrar Nova Pergunta
+</a><br /><br />
+
+<div style='font-family:Arial'>
+    @using (Html.BeginForm("Index", "mpc_perguntas", FormMethod.Get))
+    {
+        <p class="infoText">
+            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @placeholder = "Digite o titulo de um podcast", @size = "30" })
+            <input type="submit" value="Buscar" />
+        </p>
+    }
+</div>
+<table class="table">
+    <tr>
+        <th>
+           Podcast
+        </th>
+        <th>
+            Pergunta
+        </th>
+        <th>
+            Resposta 1
+        </th>
+        <th>
+            Resposta 2
+        </th>
+        <th>
+            Resposta 3
+        </th>
+        <th>
+            Resposta 4
+        </th>
+        <th>
+            Resposta Certa
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>       
+        <!--<td>
+            
+        </td>-->
+        <td>
+           @perguntaController.getPodcast(item.podcast_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.pergunta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.resp1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.resp2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.resp3)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.resp4)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.resp_certa)
+        </td>
+        <td>
+            @Html.ActionLink(" ", "Edit", new { id = item.id }, new { @class = "editIcon" })
+            @Html.ActionLink(" ", "Delete", new { id = item.id }, new { @class = "deleteIcon" })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,164 @@
+﻿@model PagedList.IPagedList<tt_medley.Models.mpc_usuarios>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+    var usuarioController = ViewContext.Controller as tt_medley.Controllers.mpc_usuariosController;
+}
+
+<h2>Lista de usuários</h2>
+
+<a href="@Url.Action("Create", "mpc_usuarios", null)" title="Cadastrar Novo Usuário" class="btn btn-info">
+    <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>
+    Cadastrar Novo Usuário
+</a>
+
+<a href="@Url.Action("getCsv", "mpc_usuarios", null)" title="Baixar Lista de Usuários" class="btn btn-info">
+    <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+    Baixar Lista de Usuários
+</a><br /><hr />
+
+@using (Html.BeginForm("Import", "mpc_usuarios", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="form-group" style="display:inline-block">
+        <label for="exampleInputFile">Escolha arquivo CSV para importar</label>
+        <input type="file" name="file">
+    </div>
+        <button type="submit" name="Submit" id="Submit" class="btn btn-primary">Cadastrar Usuários em Lote</button>
+}
+
+<hr />
+
+<div style='font-family:Arial'>
+    @using (Html.BeginForm("Index", "mpc_usuarios", FormMethod.Get))
+    {
+        <div class="form-group" style="display:inline-block">
+            @Html.TextBox("NameString", ViewBag.CurrentFilter as string, new { @placeholder = "Digite o nome de um usuário", @size = "30" })
+            @Html.TextBox("EmailString", ViewBag.CurrentFilter as string, new { @placeholder = "Digite o email de um usuário", @size = "30" })
+            @Html.TextBox("CpfString", ViewBag.CurrentFilter as string, new { @placeholder = "Digite o cpf de um usuário", @size = "30", @maxlength = "15" })
+            <button type="submit" name="Submit" id="Submit" class="btn btn-default">Buscar</button>
+        </div>
+    }
+</div>
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("Nome", "Index", new { sortOrder = ViewBag.NomeSortOrder, currentFilter = ViewBag.CurrentFilter }, new { @class = "tableLink" })
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            CPF
+        </th>
+        <th>
+            @Html.ActionLink("Empresa", "Index", new { sortOrder = ViewBag.EmpresaSortOrder, currentFilter = ViewBag.CurrentFilter }, new { @class = "tableLink" })
+        </th>
+        <th>
+            @Html.ActionLink("Cargo", "Index", new { sortOrder = ViewBag.CargoSortOrder, currentFilter = ViewBag.CurrentFilter }, new { @class = "tableLink" })
+        </th>
+        <th>
+            @Html.ActionLink("Unidade", "Index", new { sortOrder = ViewBag.UnidadeSortOrder, currentFilter = ViewBag.CurrentFilter }, new { @class = "tableLink" })
+        </th>
+        <th>
+            @Html.ActionLink("Equipe", "Index", new { sortOrder = ViewBag.EquipeSortOrder, currentFilter = ViewBag.CurrentFilter }, new { @class = "tableLink" })
+        </th>
+        <th>
+            Gestor
+        </th>
+        <th>
+            Matrícula
+        </th>
+
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            @if (item.C__deleted != true)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.cpf)
+                </td>
+                <td>
+                    @usuarioController.GetEmpresa(item.empresa_id)
+                </td>
+                <td>
+                    @usuarioController.GetCargo(item.cargo_id)
+                </td>
+                <td>
+                    @usuarioController.GetUnidade(item.unidade_id)
+                </td>
+                <td>
+                    @usuarioController.GetEquipe(item.equipe_id)
+                </td>
+                <td>
+                    @usuarioController.GetGestorMail(item.gestor_id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.id_matricula)
+                </td>
+                <td data-toggle="collapse" data-target="#@item.id" class="accordion-toggle">
+                    <div class="viewIcon"><span class="glyphicon glyphicon-eye-open"></span></div>
+                </td>
+                <td>
+                    @Html.ActionLink("   ", "Edit", new { id = item.id }, new { @class = "editIcon" })
+                </td>
+                <td>
+                    @Html.ActionLink("   ", "Delete", new { id = item.id }, new { @class = "deleteIcon" })
+                </td>
+            }
+
+        </tr>
+        <tr>
+            <td colspan="12" class="hiddenRow">
+                <div class="accordian-body collapse" id="@item.id">
+                    <table class="table">
+                        <thead>
+                            <tr><th>Engajamento</th><th>Notas</th><th>Audiência</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                @{
+                                    var engage = usuarioController.getEngage(item.id);
+                                    <td>@String.Format("{0:N2}", engage[0]) %</td>
+                                    <td>@String.Format("{0:N2}", engage[1]) %</td>
+                                    <td>@String.Format("{0:N2}", engage[2]) %</td>
+                                }
+
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </td>
+        </tr>
+                                    }
+
+</table>
+<br />
+<div class="infoText">
+    Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+</div>
+
+@{
+    var message = TempData["AlertMessage"] ?? string.Empty;
+}
+
+<script type="text/javascript">
+    var message = '@message';
+    if (message)
+        alert(message);
+</script>
